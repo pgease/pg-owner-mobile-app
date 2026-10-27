@@ -19,7 +19,7 @@ if (!fs.existsSync(configPath)) {
 const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
 
 if (mode === 'live') {
-  const targetUrl = liveUrl || 'https://owner.pgease.in';
+  const targetUrl = liveUrl || 'https://app.pgease.in';
   config.server = config.server || {};
   config.server.url = targetUrl;
   config.server.cleartext = true;
