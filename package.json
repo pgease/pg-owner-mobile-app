@@ -1,0 +1,53 @@
+{
+  "name": "pg-owner-mobile-app",
+  "version": "1.0.0",
+  "description": "Mobile application wrapper for PG Ease Owner Web Application",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:web": "node ./scripts/sync-web-build.js",
+    "mode:live": "node ./scripts/set-mode.js live",
+    "mode:local": "node ./scripts/set-mode.js local",
+    "cap": "cap",
+    "add:android": "cap add android",
+    "add:ios": "cap add ios",
+    "sync": "node ./scripts/smart-sync.js",
+    "sync:android": "node ./scripts/sync-web-build.js && cap sync android",
+    "sync:ios": "node ./scripts/sync-web-build.js && cap sync ios",
+    "sync:all": "node ./scripts/sync-web-build.js && cap sync",
+    "open:android": "cap open android",
+    "open:ios": "cap open ios",
+    "run:android": "cap run android",
+    "run:ios": "cap run ios",
+    "build:apk": "cd android && ./gradlew assembleDebug",
+    "clean:android": "cd android && ./gradlew clean"
+  },
+  "keywords": [
+    "pgease",
+    "owner",
+    "capacitor",
+    "android",
+    "ios",
+    "mobile"
+  ],
+  "author": "PG Ease",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@capacitor/android": "^6.2.2",
+    "@capacitor/app": "^6.0.3",
+    "@capacitor/cli": "^6.2.2",
+    "@capacitor/core": "^6.2.2",
+    "@capacitor/haptics": "^6.0.3",
+    "@capacitor/ios": "^6.2.2",
+    "@capacitor/keyboard": "^6.0.4",
+    "@capacitor/network": "^6.0.4",
+    "@capacitor/splash-screen": "^6.0.4",
+    "@capacitor/status-bar": "^6.0.3",
+    "dotenv": "^18.0.9",
+    "fs-extra": "^11.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2"
+  }
+}

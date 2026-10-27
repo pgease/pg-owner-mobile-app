@@ -1,0 +1,31 @@
+{
+  "appId": "in.pgease.owner",
+  "appName": "PG Ease Owner",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https",
+    "iosScheme": "https",
+    "cleartext": true,
+    "url": "https://owner.pgease.in"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1800,
+      "launchAutoHide": true,
+      "backgroundColor": "#FFFFFF",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "LIGHT",
+      "backgroundColor": "#FFFFFF",
+      "overlaysWebView": false
+    },
+    "Keyboard": {
+      "resize": "body",
+      "style": "LIGHT",
+      "resizeOnFullScreen": true
+    }
+  }
+}
