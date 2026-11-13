@@ -6,7 +6,7 @@
     "androidScheme": "https",
     "iosScheme": "https",
     "cleartext": true,
-    "url": "https://app.pgease.in"
+    "url": "https://app.pgease.com"
   },
   "plugins": {
     "SplashScreen": {

@@ -7,7 +7,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const ROOT_MOBILE_DIR = path.resolve(__dirname, '..');
-const WEB_APP_DIR = path.resolve(__dirname, '../../pg-owner-web-application');
+const CANDIDATE_WEB_DIRS = [
+  path.resolve(__dirname, '../../pg-manager-web-application'),
+  path.resolve(__dirname, '../../pg-owner-web-application'),
+  path.resolve(__dirname, '../pg-manager-web-application'),
+];
+const WEB_APP_DIR = CANDIDATE_WEB_DIRS.find(dir => fs.existsSync(dir)) || CANDIDATE_WEB_DIRS[0];
 const WEB_DIST_DIR = path.join(WEB_APP_DIR, 'dist');
 const TARGET_DIST_DIR = path.join(ROOT_MOBILE_DIR, 'dist');
 
