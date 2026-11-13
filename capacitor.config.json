@@ -2,11 +2,12 @@
   "appId": "in.pgease.owner",
   "appName": "PG Ease Owner",
   "webDir": "dist",
+  "appendUserAgent": "PGEaseApp",
   "server": {
     "androidScheme": "https",
     "iosScheme": "https",
     "cleartext": true,
-    "url": "https://app.pgease.com"
+    "url": "https://app.pgease.com?app=1"
   },
   "plugins": {
     "SplashScreen": {
