@@ -4,6 +4,8 @@
         <item name="windowSplashScreenBackground">#005045</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash</item>
         <item name="postSplashScreenTheme">@style/AppTheme.NoActionBar</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>
 

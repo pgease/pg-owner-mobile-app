@@ -104,8 +104,8 @@ npm run open:ios
 
 - **App ID**: `in.pgease.owner`
 - **App Name**: `PG Ease Owner`
-- **Safe Area Insets**: Notch and home-bar padding automatically applied (`viewport-fit=cover`).
-- **Android Back Button**: Navigates backwards through browser history, or exits if on root dashboard/login.
-- **Status Bar**: Clean light status bar with native dark icons.
-- **Splash Screen**: Seamless launch splash screen that auto-dismisses once app loads.
-- **Keyboard Handling**: Auto-resizes view when keyboard opens to prevent input occlusion.
+- **Shell**: Capacitor 8 Android WebView loading `https://app.pgease.com?app=1` (no browser chrome). See `docs/SHELL_AUDIT.md` for the Play-ready shell, back button, uploads, downloads, external links, and the founder checklist.
+- **Safe area**: System bars are brand `#008080` and the WebView is padded inside them, including the keyboard.
+- **Android back**: Closes an in-app popup, then an open dialog when the page handles Escape, then WebView history. A second back at the root exits.
+- **Splash screen**: Unchanged launch splash (`#005045` background, existing artwork).
+- **Target**: Android 16 / API 36, minSdk 24, 16 KB page-size packaging.

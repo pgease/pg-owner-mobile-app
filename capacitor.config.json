@@ -7,7 +7,24 @@
     "androidScheme": "https",
     "iosScheme": "https",
     "cleartext": true,
-    "url": "https://app.pgease.com?app=1"
+    "url": "https://app.pgease.com?app=1",
+    "allowNavigation": [
+      "*.easebuzz.in",
+      "*.razorpay.com",
+      "*.digio.in",
+      "*.cashfree.com",
+      "*.payu.in",
+      "*.payumoney.com",
+      "*.billdesk.com",
+      "*.ccavenue.com",
+      "*.stripe.com",
+      "*.juspay.in",
+      "*.phonepe.com",
+      "*.cardinalcommerce.com",
+      "*.arcot.com",
+      "*.wibmo.com",
+      "ebz-static.s3.ap-south-1.amazonaws.com"
+    ]
   },
   "plugins": {
     "SplashScreen": {
@@ -18,13 +35,17 @@
       "androidScaleType": "CENTER_CROP",
       "showSpinner": false
     },
+    "SystemBars": {
+      "insetsHandling": "disable",
+      "style": "DARK"
+    },
     "StatusBar": {
-      "style": "LIGHT",
-      "backgroundColor": "#FFFFFF",
-      "overlaysWebView": false
+      "style": "DARK",
+      "backgroundColor": "#008080",
+      "overlaysWebView": true
     },
     "Keyboard": {
-      "resize": "body",
+      "resize": "none",
       "style": "LIGHT",
       "resizeOnFullScreen": true
     }
