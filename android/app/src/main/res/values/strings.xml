@@ -4,4 +4,16 @@
     <string name="title_activity_main">PG Ease Owner</string>
     <string name="package_name">in.pgease.owner</string>
     <string name="custom_url_scheme">in.pgease.owner</string>
+    <string name="offline_title">Couldn\'t open PG Ease</string>
+    <string name="offline_body">You appear to be offline. Check your connection and try again.</string>
+    <string name="error_body">The page didn\'t load. Check your connection and try again.</string>
+    <string name="action_retry">Try again</string>
+    <string name="press_back_again">Press back again to exit</string>
+    <string name="no_app_for_link">No app found to open this link</string>
+    <string name="download_started">Download started</string>
+    <string name="download_saved">Saved to Downloads</string>
+    <string name="download_failed">Couldn\'t download that file</string>
+    <string name="popup_close">Close</string>
+    <string name="popup_title">PG Ease</string>
+    <string name="chooser_upload">Upload a file</string>
 </resources>
