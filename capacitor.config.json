@@ -47,7 +47,7 @@
       "overlaysWebView": true
     },
     "Keyboard": {
-      "resize": "none",
+      "resize": "body",
       "style": "LIGHT",
       "resizeOnFullScreen": true
     }
