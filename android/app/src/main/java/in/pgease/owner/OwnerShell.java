@@ -245,6 +245,9 @@ public final class OwnerShell {
             hideOffline();
             view.evaluateJavascript(PULL_JS, null);
         }
+        if (view != null) {
+            view.evaluateJavascript("if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.SplashScreen) { window.Capacitor.Plugins.SplashScreen.hide(); }", null);
+        }
     }
 
     public void showOffline(String description) {

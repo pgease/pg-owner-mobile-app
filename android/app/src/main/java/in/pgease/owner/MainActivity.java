@@ -24,13 +24,7 @@ import com.getcapacitor.BridgeActivity;
 
 public class MainActivity extends BridgeActivity {
 
-    private static final String PREFS_NAME = "pgease_mobile_prefs";
-    private static final String KEY_ONBOARDING_SEEN = "has_seen_onboarding_slides";
-    private final int[] slides = { R.drawable.slide_1, R.drawable.slide_2, R.drawable.slide_3 };
-
     private OwnerShell shell;
-    private View onboardingOverlay;
-    private ViewPager onboardingPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,30 +43,23 @@ public class MainActivity extends BridgeActivity {
             shell.openAppLink(getIntent());
         }
 
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        boolean hasSeen = prefs.getBoolean(KEY_ONBOARDING_SEEN, false);
-        if (!hasSeen) {
-            setupOnboardingOverlay(prefs);
-        }
-
         getOnBackPressedDispatcher().addCallback(
             this,
             new OnBackPressedCallback(true) {
                 @Override
                 public void handleOnBackPressed() {
-                    if (onboardingOverlay != null && onboardingOverlay.getParent() != null && onboardingPager != null) {
-                        int current = onboardingPager.getCurrentItem();
-                        if (current > 0) {
-                            onboardingPager.setCurrentItem(current - 1, true);
-                        }
-                        return;
-                    }
                     if (shell != null) {
                         shell.onBackPressed();
                     }
                 }
             }
         );
+
+        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+            if (getBridge() != null && getBridge().getWebView() != null) {
+                getBridge().getWebView().evaluateJavascript("if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.SplashScreen) { window.Capacitor.Plugins.SplashScreen.hide(); }", null);
+            }
+        }, 3000);
     }
 
     @Override
@@ -120,148 +107,5 @@ public class MainActivity extends BridgeActivity {
         if (shell != null) {
             shell.openAppLink(intent);
         }
-    }
-
-    private void setupOnboardingOverlay(final SharedPreferences prefs) {
-        final ViewGroup rootView = (ViewGroup) findViewById(android.R.id.content);
-        if (rootView == null) {
-            return;
-        }
-
-        final View overlay = LayoutInflater.from(this).inflate(R.layout.onboarding_overlay, rootView, false);
-        onboardingOverlay = overlay;
-        rootView.addView(overlay);
-        if (shell != null) {
-            shell.setOnboardingView(overlay);
-        }
-        applyOnboardingInsets(overlay);
-
-        final ViewPager viewPager = overlay.findViewById(R.id.onboarding_viewpager);
-        onboardingPager = viewPager;
-        final TextView btnSkip = overlay.findViewById(R.id.btn_skip);
-        final Button btnAction = overlay.findViewById(R.id.btn_action);
-        final LinearLayout dotsLayout = overlay.findViewById(R.id.dots_layout);
-
-        viewPager.setAdapter(
-            new PagerAdapter() {
-                @Override
-                public int getCount() {
-                    return slides.length;
-                }
-
-                @Override
-                public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-                    return view == object;
-                }
-
-                @NonNull
-                @Override
-                public Object instantiateItem(@NonNull ViewGroup container, int position) {
-                    ImageView imageView = new ImageView(MainActivity.this);
-                    imageView.setLayoutParams(
-                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-                    );
-                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    imageView.setImageResource(slides[position]);
-                    container.addView(imageView);
-                    return imageView;
-                }
-
-                @Override
-                public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-                    container.removeView((View) object);
-                }
-            }
-        );
-
-        updateDots(dotsLayout, 0);
-
-        viewPager.addOnPageChangeListener(
-            new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
-                @Override
-                public void onPageSelected(int position) {
-                    updateDots(dotsLayout, position);
-                    if (position == slides.length - 1) {
-                        btnAction.setText("Get Started");
-                    } else {
-                        btnAction.setText("Next");
-                    }
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {}
-            }
-        );
-
-        View.OnClickListener finishAction = v -> dismissOnboarding(prefs, rootView, overlay);
-
-        btnSkip.setOnClickListener(finishAction);
-        btnAction.setOnClickListener(v -> {
-            int current = viewPager.getCurrentItem();
-            if (current < slides.length - 1) {
-                viewPager.setCurrentItem(current + 1, true);
-            } else {
-                dismissOnboarding(prefs, rootView, overlay);
-            }
-        });
-    }
-
-    private void dismissOnboarding(SharedPreferences prefs, ViewGroup rootView, View overlay) {
-        prefs.edit().putBoolean(KEY_ONBOARDING_SEEN, true).apply();
-        overlay
-            .animate()
-            .alpha(0f)
-            .setDuration(250)
-            .withEndAction(() -> {
-                rootView.removeView(overlay);
-                if (onboardingOverlay == overlay) {
-                    onboardingOverlay = null;
-                    onboardingPager = null;
-                }
-                if (shell != null) {
-                    shell.setOnboardingView(null);
-                }
-            });
-    }
-
-    private void applyOnboardingInsets(View overlay) {
-        View topBar = overlay.findViewById(R.id.onboarding_top);
-        View bottomBar = overlay.findViewById(R.id.onboarding_bottom);
-        int topBase = topBar.getPaddingTop();
-        int topLeft = topBar.getPaddingLeft();
-        int topRight = topBar.getPaddingRight();
-        int topBottom = topBar.getPaddingBottom();
-        int bottomBase = bottomBar.getPaddingBottom();
-        int bottomLeft = bottomBar.getPaddingLeft();
-        int bottomRight = bottomBar.getPaddingRight();
-        int bottomTop = bottomBar.getPaddingTop();
-        ViewCompat.setOnApplyWindowInsetsListener(overlay, (v, insets) -> {
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
-            topBar.setPadding(topLeft, topBase + bars.top, topRight, topBottom);
-            bottomBar.setPadding(bottomLeft, bottomTop, bottomRight, bottomBase + bars.bottom);
-            return insets;
-        });
-        ViewCompat.requestApplyInsets(overlay);
-    }
-
-    private void updateDots(LinearLayout dotsLayout, int current) {
-        dotsLayout.removeAllViews();
-        for (int i = 0; i < slides.length; i++) {
-            View dot = new View(this);
-            int width = (i == current) ? dpToPx(24) : dpToPx(7);
-            int height = dpToPx(7);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
-            params.setMargins(dpToPx(3), 0, dpToPx(3), 0);
-            dot.setLayoutParams(params);
-            dot.setBackgroundResource(i == current ? R.drawable.dot_active : R.drawable.dot_inactive);
-            dotsLayout.addView(dot);
-        }
-    }
-
-    private int dpToPx(int dp) {
-        return Math.round(dp * getResources().getDisplayMetrics().density);
     }
 }

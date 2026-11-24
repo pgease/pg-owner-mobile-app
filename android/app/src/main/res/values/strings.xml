@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">PG Ease</string>
-    <string name="title_activity_main">PG Ease</string>
+    <string name="app_name">PG Ease Manager</string>
+    <string name="title_activity_main">PG Ease Manager</string>
     <string name="package_name">in.pgease.owner</string>
     <string name="custom_url_scheme">in.pgease.owner</string>
     <string name="offline_title">Couldn\'t open PG Ease</string>

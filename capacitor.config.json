@@ -1,14 +1,15 @@
 {
   "appId": "in.pgease.owner",
-  "appName": "PG Ease",
+  "appName": "PG Ease Manager",
   "webDir": "dist",
   "appendUserAgent": "PGEaseApp",
   "server": {
     "androidScheme": "https",
     "iosScheme": "https",
     "cleartext": true,
-    "url": "https://app.pgease.com?app=1",
     "allowNavigation": [
+      "*.pgease.com",
+      "*.pgease.in",
       "*.easebuzz.in",
       "*.razorpay.com",
       "*.digio.in",
@@ -31,9 +32,10 @@
       "launchShowDuration": 3000,
       "launchAutoHide": false,
       "backgroundColor": "#008080",
-      "androidSplashResourceName": "splash",
       "androidScaleType": "CENTER_CROP",
-      "showSpinner": false
+      "showSpinner": false,
+      "splashFullScreen": false,
+      "splashImmersive": false
     },
     "SystemBars": {
       "insetsHandling": "disable",
