@@ -45,7 +45,7 @@ if (fs.existsSync(WEB_APP_DIR)) {
     // Write minimal shell
     fs.writeFileSync(
       path.join(TARGET_DIST_DIR, 'index.html'),
-      '<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><title>PG Ease Owner</title></head><body><div id="root">Loading PG Ease Owner...</div></body></html>',
+      '<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><title>PG Ease Manager</title></head><body><div id="root">Loading PG Ease Manager...</div></body></html>',
       'utf-8'
     );
   }
