@@ -97,19 +97,9 @@ if (fs.existsSync(targetIndexHtml)) {
 
           console.log('[PG Ease Mobile] Capacitor runtime active.');
 
-          // Android Back Button handler
-          if (Cap.Plugins && Cap.Plugins.App) {
-            Cap.Plugins.App.addListener('backButton', function(event) {
-              var currentPath = window.location.pathname;
-              var isRoot = currentPath === '/' || currentPath === '/dashboard' || currentPath === '/login' || currentPath === '';
-              
-              if (!isRoot && window.history.length > 1) {
-                window.history.back();
-              } else {
-                Cap.Plugins.App.exitApp();
-              }
-            });
-          }
+          // Back, external links, downloads and pull-to-refresh are handled
+          // natively in MainActivity/OwnerShell so they also work for the live site.
+          // Do not register a second Capacitor backButton listener here.
 
           // Splash screen auto-dismiss
           if (Cap.Plugins && Cap.Plugins.SplashScreen) {
