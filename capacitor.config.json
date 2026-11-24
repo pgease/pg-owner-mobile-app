@@ -48,8 +48,7 @@
     },
     "Keyboard": {
       "resize": "body",
-      "style": "LIGHT",
-      "resizeOnFullScreen": true
+      "style": "DARK"
     }
   }
 }

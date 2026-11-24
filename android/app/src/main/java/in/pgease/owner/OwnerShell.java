@@ -136,10 +136,9 @@ public final class OwnerShell {
         webView.setBackgroundColor(Color.WHITE);
 
         ViewGroup content = activity.findViewById(android.R.id.content);
-        content.setBackgroundColor(SystemBarStyling.BRAND);
+        content.setBackgroundColor(Color.WHITE);
         if (content.getChildCount() > 0) {
-            content.getChildAt(0).setBackgroundColor(SystemBarStyling.BRAND);
-            SystemBarStyling.padForSystemBars(content.getChildAt(0));
+            content.getChildAt(0).setBackgroundColor(Color.WHITE);
         }
 
         wrapPullToRefresh();

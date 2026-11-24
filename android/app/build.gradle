@@ -7,8 +7,8 @@ android {
         applicationId "in.pgease.owner"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -18,18 +18,20 @@ android {
     }
     signingConfigs {
         release {
-            def keystorePropsFile = file('../keystore.properties')
+            def externalPropsFile = file('/Users/saksham/pgease-keystore/keystore.properties')
+            def localPropsFile = file('../keystore.properties')
+            def keystorePropsFile = externalPropsFile.exists() ? externalPropsFile : (localPropsFile.exists() ? localPropsFile : null)
             def keystoreProps = new Properties()
-            if (keystorePropsFile.exists()) {
+            if (keystorePropsFile != null && keystorePropsFile.exists()) {
                 keystoreProps.load(new FileInputStream(keystorePropsFile))
             }
-            def keystoreFilePath = keystoreProps['storeFile'] ?: '../keystores/pgease-release-key.jks'
+            def keystoreFilePath = System.getenv("PGEASE_KEYSTORE_PATH") ?: keystoreProps['storeFile'] ?: '/Users/saksham/pgease-keystore/pgease-upload.jks'
             def keystoreFile = file(keystoreFilePath)
             if (keystoreFile.exists()) {
                 storeFile keystoreFile
                 storePassword keystoreProps['storePassword'] ?: System.getenv("PGEASE_KEYSTORE_PASSWORD")
-                keyAlias keystoreProps['keyAlias'] ?: System.getenv("PGEASE_KEY_ALIAS") ?: "pgease"
-                keyPassword keystoreProps['keyPassword'] ?: System.getenv("PGEASE_KEY_PASSWORD")
+                keyAlias keystoreProps['keyAlias'] ?: System.getenv("PGEASE_KEY_ALIAS") ?: "pgease-upload"
+                keyPassword keystoreProps['keyPassword'] ?: System.getenv("PGEASE_KEY_PASSWORD") ?: keystoreProps['storePassword']
                 v1SigningEnabled true
                 v2SigningEnabled true
             }

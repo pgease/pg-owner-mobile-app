@@ -33,15 +33,14 @@ public final class SystemBarStyling {
         controller.setAppearanceLightNavigationBars(false);
     }
 
-    /** Pads {@code view} by the status bar, navigation bar, cutout, and keyboard. */
+    /** Pads {@code view} by the status bar, navigation bar, and cutout. */
     public static void padForSystemBars(View view) {
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
             Insets status = insets.getInsets(WindowInsetsCompat.Type.statusBars());
             Insets nav = insets.getInsets(WindowInsetsCompat.Type.navigationBars());
             Insets cutout = insets.getInsets(WindowInsetsCompat.Type.displayCutout());
-            Insets ime = insets.getInsets(WindowInsetsCompat.Type.ime());
             int top = Math.max(status.top, cutout.top);
-            int bottom = Math.max(nav.bottom, ime.bottom);
+            int bottom = nav.bottom;
             int left = Math.max(Math.max(status.left, nav.left), cutout.left);
             int right = Math.max(Math.max(status.right, nav.right), cutout.right);
             v.setPadding(left, top, right, bottom);

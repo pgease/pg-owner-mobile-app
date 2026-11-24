@@ -35,7 +35,7 @@ public class MainActivity extends BridgeActivity {
         super.onCreate(savedInstanceState);
         removeTitleBar();
         SystemBarStyling.enable(this);
-        getWindow().getDecorView().setBackgroundColor(SystemBarStyling.BRAND);
+        getWindow().getDecorView().setBackgroundColor(android.graphics.Color.WHITE);
 
         shell = new OwnerShell(this);
         if (getBridge() != null) {
