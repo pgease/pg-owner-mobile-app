@@ -6,10 +6,13 @@
   "server": {
     "androidScheme": "https",
     "iosScheme": "https",
+    "hostname": "app.pgease.com",
     "cleartext": true,
     "allowNavigation": [
       "*.pgease.com",
       "*.pgease.in",
+      "am4eey3lmk.execute-api.ap-south-1.amazonaws.com",
+      "*.execute-api.ap-south-1.amazonaws.com",
       "*.easebuzz.in",
       "*.razorpay.com",
       "*.digio.in",
@@ -37,18 +40,18 @@
       "splashFullScreen": false,
       "splashImmersive": false
     },
-    "SystemBars": {
-      "insetsHandling": "disable",
-      "style": "DARK"
-    },
     "StatusBar": {
-      "style": "DARK",
-      "backgroundColor": "#008080",
-      "overlaysWebView": true
+      "style": "LIGHT",
+      "backgroundColor": "#FFFFFF",
+      "overlaysWebView": false
+    },
+    "SystemBars": {
+      "style": "LIGHT",
+      "insetsHandling": "enable"
     },
     "Keyboard": {
       "resize": "body",
-      "style": "DARK"
+      "style": "LIGHT"
     }
   }
 }
