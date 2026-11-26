@@ -21,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.util.Locale;
 import org.json.JSONObject;
@@ -136,9 +139,9 @@ public final class OwnerShell {
         webView.setBackgroundColor(Color.WHITE);
 
         ViewGroup content = activity.findViewById(android.R.id.content);
-        content.setBackgroundColor(Color.WHITE);
+        content.setBackgroundColor(SystemBarStyling.BRAND);
         if (content.getChildCount() > 0) {
-            content.getChildAt(0).setBackgroundColor(Color.WHITE);
+            content.getChildAt(0).setBackgroundColor(SystemBarStyling.BRAND);
         }
 
         wrapPullToRefresh();
@@ -365,7 +368,28 @@ public final class OwnerShell {
             webView.reload();
         });
         swipe.addView(webView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        swipe.setBackgroundColor(SystemBarStyling.BRAND);
         parent.addView(swipe, index);
+
+        // Option A: Reserve status bar, display cutout, and nav bar/IME space natively on SwipeRefreshLayout
+        // and consume insets so WebView env(safe-area-inset-*) stays 0px on Android (no double padding or overlap).
+        ViewCompat.setOnApplyWindowInsetsListener(swipe, (view, insets) -> {
+            Insets bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout()
+            );
+            boolean keyboard = insets.isVisible(WindowInsetsCompat.Type.ime());
+            int imeBottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
+            int bottom = keyboard ? imeBottom : bars.bottom;
+            view.setPadding(bars.left, bars.top, bars.right, bottom);
+            float density = activity.getResources().getDisplayMetrics().density;
+            swipe.setProgressViewOffset(false, bars.top + Math.round(8 * density), bars.top + Math.round(72 * density));
+            return new WindowInsetsCompat.Builder(insets)
+                .setInsets(WindowInsetsCompat.Type.systemBars(), Insets.NONE)
+                .setInsets(WindowInsetsCompat.Type.displayCutout(), Insets.NONE)
+                .setInsets(WindowInsetsCompat.Type.ime(), Insets.NONE)
+                .build();
+        });
+        ViewCompat.requestApplyInsets(swipe);
     }
 
     private void ensureOfflineOverlay() {

@@ -42,13 +42,13 @@
       "splashImmersive": false
     },
     "StatusBar": {
-      "style": "LIGHT",
-      "backgroundColor": "#FFFFFF",
+      "style": "DARK",
+      "backgroundColor": "#008080",
       "overlaysWebView": false
     },
     "SystemBars": {
-      "style": "LIGHT",
-      "insetsHandling": "enable"
+      "style": "DARK",
+      "insetsHandling": "disable"
     },
     "Keyboard": {
       "resize": "body",
