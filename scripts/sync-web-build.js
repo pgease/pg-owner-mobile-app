@@ -75,10 +75,7 @@ if (fs.existsSync(targetIndexHtml)) {
         --sar: env(safe-area-inset-right, 0px);
       }
       body {
-        padding-top: var(--sat);
-        padding-bottom: var(--sab);
-        padding-left: var(--sal);
-        padding-right: var(--sar);
+        /* Android SystemBarStyling.padForSystemBars already clears status & nav bars */
         -webkit-user-select: none;
         user-select: none;
         -webkit-tap-highlight-color: transparent;

@@ -223,11 +223,16 @@ public final class OwnerShell {
             if (value != null && value.contains("closed")) {
                 return;
             }
-            if (webView.canGoBack()) {
-                webView.goBack();
-                return;
-            }
-            exitIfRepeated();
+            webView.evaluateJavascript("window.__pgeaseHandleBack ? window.__pgeaseHandleBack() : 'none'", backResult -> {
+                if (backResult != null && backResult.contains("handled")) {
+                    return;
+                }
+                if (webView.canGoBack()) {
+                    webView.goBack();
+                    return;
+                }
+                exitIfRepeated();
+            });
         });
     }
 
