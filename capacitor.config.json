@@ -7,6 +7,7 @@
     "androidScheme": "https",
     "iosScheme": "https",
     "hostname": "app.pgease.com",
+    "errorPath": "offline.html",
     "cleartext": true,
     "allowNavigation": [
       "*.pgease.com",
